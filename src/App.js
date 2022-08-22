@@ -1,11 +1,17 @@
 // import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './page/Login';
+import Todo from './page/Todo';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Hello</h1>
-      </header>
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<Login />} />
+          <Route path="/todo" element={<Todo />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
