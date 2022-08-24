@@ -1,6 +1,6 @@
 import TodoItem from './TodoItem';
 
-function TodoList({ todoList }) {
+function TodoList({ todoList, setTodoList }) {
   return (
     <>
       <h2>TodoList</h2>
@@ -12,6 +12,7 @@ function TodoList({ todoList }) {
           todo={list.todo}
           isCompleted={list.isCompleted}
           userId={list.userId}
+          setTodoList={setTodoList}
         />
         // </div>
       ))}

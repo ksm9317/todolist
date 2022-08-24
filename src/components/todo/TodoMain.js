@@ -48,7 +48,7 @@ function TodoMain() {
         handleChange={handleChange}
         todo={todo}
       />
-      <TodoList todoList={todoList} />
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
     </>
   );
 }

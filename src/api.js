@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// const apiUrl =
+//   'https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/';
+const backendPortNumber = '8000';
 const apiUrl =
-  'https://5co7shqbsf.execute-api.ap-northeast-2.amazonaws.com/production/';
+  'http://' + window.location.hostname + ':' + backendPortNumber + '/';
 
 async function get(endpoint) {
   console.log(`%cGET 요청 ${apiUrl + endpoint}`, 'color: #a25cd1;');
@@ -39,4 +42,13 @@ async function put(endpoint, data) {
   });
 }
 
-export { get, post, put };
+async function del(endpoint, params = '') {
+  console.log(`DELETE 요청 ${apiUrl + endpoint + '/' + params}`);
+  return axios.delete(apiUrl + endpoint + '/' + params, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+    },
+  });
+}
+
+export { get, post, put, del };

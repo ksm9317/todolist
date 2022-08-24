@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Api from '../../api';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 
-function TodoItem({ id, todo, isCompleted, userId }) {
+function TodoItem({ id, todo, isCompleted, userId, setTodoList }) {
   const [check, setCheck] = useState(isCompleted);
 
   const checkBoxHandler = async (e) => {
@@ -15,6 +15,13 @@ function TodoItem({ id, todo, isCompleted, userId }) {
     setCheck(update.isCompleted);
   };
 
+  const itemDeleteHandler = async (e) => {
+    e.preventDefault();
+    await Api.del(`todos/${id}`);
+    const update = await Api.get('todos');
+    setTodoList(update.data);
+  };
+
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -25,6 +32,7 @@ function TodoItem({ id, todo, isCompleted, userId }) {
         )}
         {/* <div>{id}</div> */}
         <div>{todo}</div>
+        <button onClick={itemDeleteHandler}>삭제</button>
         {/* <div>{isCompleted}</div> */}
         {/* <div>{userId}</div> */}
       </div>
