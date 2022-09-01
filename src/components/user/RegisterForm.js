@@ -48,37 +48,54 @@ function RegisterForm() {
       <section>
         <form onSubmit={handleSubmit}>
           <article className="email">
-            <div style={{ color: 'blue' }}>이메일 주소</div>
+            <div style={{ color: 'white' }}>이메일</div>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              style={{
+                marginBottom: '0.5rem',
+                width: '-webkit-fill-available',
+              }}
             ></input>
             <div>{!isEmailValid && '이메일 형식이 올바르지 않습니다.'}</div>
           </article>
           <article className="password">
-            <div style={{ color: 'green' }}>비밀번호</div>
+            <div style={{ color: 'white' }}>비밀번호</div>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              style={{
+                marginBottom: '0.5rem',
+                width: '-webkit-fill-available',
+              }}
             ></input>
             <div>{!isPasswordValid && '비밀번호는 8자 이상입니다.'}</div>
           </article>
           <article className="password">
-            <div style={{ color: 'green' }}>비밀번호 확인</div>
+            <div style={{ color: 'white' }}>비밀번호 확인</div>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              style={{
+                marginBottom: '0.5rem',
+                width: '-webkit-fill-available',
+              }}
             ></input>
             <div>{!isPasswordSame && '비밀번호가 일치하지 않습니다.'}</div>
           </article>
-          <article className="btn">
+          <article className="btn" style={{ textAlign: 'center', gap: '1rem' }}>
             <button
               className="registerBtn"
               type="submit"
               disabled={!isFormValid}
+              style={{
+                marginRight: '0.5rem',
+                backgroundColor: 'lightgreen',
+                border: 'none',
+              }}
             >
               회원가입
             </button>
@@ -86,6 +103,11 @@ function RegisterForm() {
               className="loginBtn"
               type="cancel"
               onClick={() => navigate('/')}
+              style={{
+                marginLeft: '0.5rem',
+                backgroundColor: 'red',
+                border: 'none',
+              }}
             >
               취소
             </button>
