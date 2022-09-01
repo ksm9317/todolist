@@ -1,3 +1,4 @@
+import { hover } from '@testing-library/user-event/dist/hover';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Api from '../../api';
@@ -41,6 +42,9 @@ function LoginForm() {
       navigate('/todo');
     } catch (err) {
       console.log('로그인에 실패하였습니다.\n', err);
+      alert(
+        `이메일 또는 비밀번호를 잘못 입력했습니다.\n입력하신 내용을 다시 확인해주세요.`
+      );
     }
   };
 
@@ -48,26 +52,46 @@ function LoginForm() {
     <>
       <section>
         <form onSubmit={handleSubmit}>
-          <article className="email">
-            <div style={{ color: 'blue' }}>이메일 주소</div>
+          <article className="email" style={{ marginBottom: '0.5rem' }}>
             <input
               type="email"
               value={email}
+              placeholder="아이디(이메일)"
               onChange={(e) => setEmail(e.target.value)}
+              style={{ width: '-webkit-fill-available' }}
             ></input>
             <div>{!isEmailValid && '이메일은 @가 포함 되어야합니다.'}</div>
           </article>
-          <article className="password">
-            <div style={{ color: 'green' }}>비밀번호</div>
+          <article className="Password" style={{ marginBottom: '1rem' }}>
             <input
               type="password"
               value={password}
+              placeholder="비밀번호"
               onChange={(e) => setPassword(e.target.value)}
+              style={{ width: '-webkit-fill-available' }}
             ></input>
             <div>{!isPasswordValid && '비밀번호는 8자 이상입니다.'}</div>
           </article>
-          <article className="btn">
-            <button className="loginBtn" type="submit" disabled={!isFormValid}>
+          <article
+            className="btn"
+            style={{ display: 'flex', flexDirection: 'column' }}
+          >
+            <button
+              className="loginBtn"
+              type="submit"
+              disabled={!isFormValid}
+              style={{
+                height: '2rem',
+                marginBottom: '0.2rem',
+                backgroundColor: 'purple',
+                color: 'white',
+                border: 'none',
+                // '&hover': {
+                //   backgroundColor: '#ff0000',
+                //   color: '#ffffff',
+                // },
+              }}
+            >
               로그인
             </button>
             <button
