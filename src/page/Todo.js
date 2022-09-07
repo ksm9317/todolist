@@ -29,11 +29,11 @@ function Todo() {
   const todoPageDisplayArea = {
     border: 'solid black 0.4rem',
     borderRadius: '0.7rem',
-    paddingLeft: '3rem',
-    paddingRight: '3rem',
+    paddingLeft: '2rem',
+    paddingRight: '2rem',
     paddingTop: '1rem',
     height: '45rem',
-    width: '19rem',
+    width: '23rem',
     overflowY: 'auto ',
   };
   const todoTextStlye = {

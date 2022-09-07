@@ -41,15 +41,14 @@ function TodoMain() {
   };
 
   return (
-    <>
-      <h2>TodoMain</h2>
+    <div>
       <TodoInput
         handleSubmit={handleSubmit}
         handleChange={handleChange}
         todo={todo}
       />
       <TodoList todoList={todoList} setTodoList={setTodoList} />
-    </>
+    </div>
   );
 }
 
