@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import * as Api from '../../api';
+import { BsCheckCircleFill } from 'react-icons/bs';
+import { MdCancel } from 'react-icons/md';
 
 function TodoEdit({ id, todo, isCompleted, setIsEdit, setTodoItem }) {
   const [editTodo, setEditTodo] = useState(todo);
@@ -9,28 +11,49 @@ function TodoEdit({ id, todo, isCompleted, setIsEdit, setTodoItem }) {
       todo: editTodo,
       isCompleted,
     });
-
     const update = await res.data;
     setTodoItem(update.todo);
     setIsEdit(false);
   };
-
   const handleChange = (e) => {
     setEditTodo(e.currentTarget.value);
   };
+  const todoEditArea = {
+    width: '100%',
+    minWidth: '14rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+  };
+  const todoEditInputStyle = {
+    width: '100%',
+    borderStyle: 'solid',
+    borderColor: 'green',
+  };
 
   return (
-    <>
-      <h4>TodoEdit</h4>
+    <div style={todoEditArea}>
       <input
         value={editTodo}
         type="text"
         onChange={handleChange}
         placeholder="New ToDo"
+        style={todoEditInputStyle}
       />
-      <button onClick={itemEditHandler}>완료</button>
-      <button onClick={() => setIsEdit(false)}>취소</button>
-    </>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <BsCheckCircleFill
+          onClick={itemEditHandler}
+          style={{ marginLeft: '0.7rem', color: 'green' }}
+        >
+          edit
+        </BsCheckCircleFill>
+        <MdCancel
+          onClick={() => setIsEdit(false)}
+          style={{ marginLeft: '0.7rem', fontSize: '1.25rem', color: 'red' }}
+        >
+          cancel
+        </MdCancel>
+      </div>
+    </div>
   );
 }
 
