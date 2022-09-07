@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import * as Api from '../../api';
-import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
+import {
+  MdRadioButtonUnchecked,
+  MdOutlineCheckCircleOutline,
+} from 'react-icons/md';
+import { FiEdit } from 'react-icons/fi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import TodoEdit from './TodoEdit';
 
 function TodoItem({ id, todo, isCompleted, userId, setTodoList }) {
@@ -24,39 +29,78 @@ function TodoItem({ id, todo, isCompleted, userId, setTodoList }) {
     const update = await Api.get('todos');
     setTodoList(update.data);
   };
+  const todoItemStyle = {
+    marginBottom: '1rem',
+    padding: '0.3rem 1rem',
+    borderRadius: '0.3rem',
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#fff7a5',
+  };
+  const checkIconStyle = {
+    marginRight: '0.5rem',
+    display: 'flex',
+  };
 
   return (
-    <>
-      <div style={{ display: 'flex' }}>
+    <div style={todoItemStyle}>
+      <div style={checkIconStyle}>
         {check ? (
-          <MdCheckBox onClick={checkBoxHandler} />
+          <MdOutlineCheckCircleOutline
+            onClick={checkBoxHandler}
+            style={{ fontSize: '1.5rem', color: 'green' }}
+          />
         ) : (
-          <MdCheckBoxOutlineBlank onClick={checkBoxHandler} />
+          <MdRadioButtonUnchecked
+            onClick={checkBoxHandler}
+            style={{ fontSize: '1.5rem', color: 'green' }}
+          />
         )}
-        {/* <div>{id}</div> */}
-        <div style={{ display: 'flex' }}>
-          {isEdit ? (
-            <>
-              <TodoEdit
-                id={id}
-                todo={todo}
-                isCompleted={isCompleted}
-                setTodoItem={setTodoItem}
-                setIsEdit={setIsEdit}
-              />
-            </>
-          ) : (
-            <>
-              <div>{todoItem}</div>
-              <button onClick={() => setIsEdit(true)}>수정</button>
-            </>
-          )}
-        </div>
-        <button onClick={itemDeleteHandler}>삭제</button>
-        {/* <div>{isCompleted}</div> */}
-        {/* <div>{userId}</div> */}
       </div>
-    </>
+      {isEdit ? (
+        <>
+          <TodoEdit
+            id={id}
+            todo={todo}
+            isCompleted={isCompleted}
+            setTodoItem={setTodoItem}
+            setIsEdit={setIsEdit}
+          />
+        </>
+      ) : (
+        <div
+          style={{
+            width: '100%',
+            minWidth: '14rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          {check ? (
+            <div style={{ textDecoration: 'line-through', color: 'gray' }}>
+              {todoItem}
+            </div>
+          ) : (
+            <div style={{ wordBreak: 'break-word' }}>{todoItem}</div>
+          )}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <FiEdit
+              onClick={() => setIsEdit(true)}
+              style={{ marginLeft: '1rem', color: 'green' }}
+            ></FiEdit>
+            <RiDeleteBin6Line
+              onClick={itemDeleteHandler}
+              style={{ marginLeft: '1rem', color: 'red' }}
+            ></RiDeleteBin6Line>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
