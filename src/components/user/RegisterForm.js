@@ -7,6 +7,24 @@ function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const registerBtnStyle = {
+    marginRight: '0.5rem',
+    padding: '0.3rem 0.6rem',
+    border: 'none',
+    borderRadius: '0.3rem',
+    backgroundColor: 'black',
+    color: 'white',
+    cursor: 'pointer',
+  };
+  const cancelBtnStyle = {
+    marginLeft: '0.5rem',
+    padding: '0.3rem 0.6rem',
+    backgroundColor: '#a2a2a2',
+    color: 'white',
+    border: 'none',
+    borderRadius: '0.3rem',
+    cursor: 'pointer',
+  };
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인.
   const validateEmail = (email) => {
@@ -39,7 +57,7 @@ function RegisterForm() {
       // 로그인 페이지로 이동함.
       navigate('/');
     } catch (err) {
-      console.log('회원가입에 실패하였습니다.', err);
+      alert('이미 등록된 이메일입니다.', err);
     }
   };
 
@@ -47,55 +65,67 @@ function RegisterForm() {
     <>
       <section>
         <form onSubmit={handleSubmit}>
-          <article className="email">
-            <div style={{ color: 'white' }}>이메일</div>
+          <article className="email" style={{ marginBottom: '0.5rem' }}>
+            <div style={{ color: '#00a8ff', fontWeight: 'bold' }}>이메일</div>
             <input
               type="email"
+              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{
-                marginBottom: '0.5rem',
                 width: '-webkit-fill-available',
               }}
             ></input>
-            <div>{!isEmailValid && '이메일 형식이 올바르지 않습니다.'}</div>
+            <small>{!isEmailValid && '이메일 형식이 올바르지 않습니다.'}</small>
           </article>
-          <article className="password">
-            <div style={{ color: 'white' }}>비밀번호</div>
+          <article className="password" style={{ marginBottom: '0.5rem' }}>
+            <div style={{ color: '#00a8ff', fontWeight: 'bold' }}>비밀번호</div>
             <input
               type="password"
+              autoComplete="off"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{
-                marginBottom: '0.5rem',
                 width: '-webkit-fill-available',
               }}
             ></input>
-            <div>{!isPasswordValid && '비밀번호는 8자 이상입니다.'}</div>
+            <small>{!isPasswordValid && '비밀번호는 8자 이상입니다.'}</small>
           </article>
-          <article className="password">
-            <div style={{ color: 'white' }}>비밀번호 확인</div>
+          <article
+            className="confirmPassword"
+            style={{ marginBottom: '0.5rem' }}
+          >
+            <div style={{ color: '#00a8ff', fontWeight: 'bold' }}>
+              비밀번호 확인
+            </div>
             <input
               type="password"
+              autoComplete="off"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               style={{
-                marginBottom: '0.5rem',
                 width: '-webkit-fill-available',
               }}
             ></input>
-            <div>{!isPasswordSame && '비밀번호가 일치하지 않습니다.'}</div>
+            <small>{!isPasswordSame && '비밀번호가 일치하지 않습니다.'}</small>
           </article>
-          <article className="btn" style={{ textAlign: 'center', gap: '1rem' }}>
+          <article
+            className="btn"
+            style={{ marginTop: '1rem', textAlign: 'center', gap: '1rem' }}
+          >
             <button
               className="registerBtn"
               type="submit"
               disabled={!isFormValid}
-              style={{
-                marginRight: '0.5rem',
-                backgroundColor: 'lightgreen',
-                border: 'none',
-              }}
+              style={
+                isFormValid
+                  ? registerBtnStyle
+                  : {
+                      ...registerBtnStyle,
+                      backgroundColor: 'lightgray',
+                      cursor: 'default',
+                    }
+              }
             >
               회원가입
             </button>
@@ -103,11 +133,7 @@ function RegisterForm() {
               className="loginBtn"
               type="cancel"
               onClick={() => navigate('/')}
-              style={{
-                marginLeft: '0.5rem',
-                backgroundColor: 'red',
-                border: 'none',
-              }}
+              style={cancelBtnStyle}
             >
               취소
             </button>

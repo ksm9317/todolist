@@ -1,4 +1,3 @@
-import { hover } from '@testing-library/user-event/dist/hover';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Api from '../../api';
@@ -7,6 +6,24 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const loginBtnStyle = {
+    height: '2rem',
+    marginBottom: '0.2rem',
+    backgroundColor: 'black',
+    color: 'white',
+    border: 'none',
+    borderRadius: '0.2rem',
+    cursor: 'pointer',
+  };
+  const registerBtnStyle = {
+    marginTop: '0.2rem',
+    color: 'black',
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    width: 'fit-content',
+    alignSelf: 'center',
+    cursor: 'pointer',
+  };
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인.
   const validateEmail = (email) => {
@@ -60,7 +77,7 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               style={{ width: '-webkit-fill-available' }}
             ></input>
-            <div>{!isEmailValid && '이메일은 @가 포함 되어야합니다.'}</div>
+            <small>{!isEmailValid && '이메일은 @가 포함 되어야합니다.'}</small>
           </article>
           <article className="Password" style={{ marginBottom: '1rem' }}>
             <input
@@ -70,7 +87,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               style={{ width: '-webkit-fill-available' }}
             ></input>
-            <div>{!isPasswordValid && '비밀번호는 8자 이상입니다.'}</div>
+            <small>{!isPasswordValid && '비밀번호는 8자 이상입니다.'}</small>
           </article>
           <article
             className="btn"
@@ -80,26 +97,25 @@ function LoginForm() {
               className="loginBtn"
               type="submit"
               disabled={!isFormValid}
-              style={{
-                height: '2rem',
-                marginBottom: '0.2rem',
-                backgroundColor: 'purple',
-                color: 'white',
-                border: 'none',
-                // '&hover': {
-                //   backgroundColor: '#ff0000',
-                //   color: '#ffffff',
-                // },
-              }}
+              style={
+                isFormValid
+                  ? loginBtnStyle
+                  : {
+                      ...loginBtnStyle,
+                      backgroundColor: 'lightgray',
+                      cursor: 'default',
+                    }
+              }
             >
               로그인
             </button>
-            <button
+            <div
               className="registerBtn"
               onClick={() => navigate('/register')}
+              style={registerBtnStyle}
             >
               회원가입
-            </button>
+            </div>
           </article>
         </form>
       </section>
