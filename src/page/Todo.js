@@ -10,6 +10,12 @@ function Todo() {
     alert('로그아웃 되었습니다.');
     navigate('/');
   };
+  const displayCenter = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  };
   const logoutBtnStyle = {
     marginLeft: '0.5rem',
     padding: '0.3rem 0.6rem',
@@ -30,6 +36,11 @@ function Todo() {
     width: '19rem',
     overflowY: 'auto ',
   };
+  const todoTextStlye = {
+    fontSize: '2rem',
+    margin: '1rem',
+    textAlign: 'center',
+  };
 
   useEffect(() => {
     if (!isLogin) {
@@ -40,33 +51,14 @@ function Todo() {
   }, []);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
+    <div style={displayCenter}>
       <div style={todoPageDisplayArea}>
-        <div
-          style={{
-            textAlign: 'end',
-          }}
-        >
+        <div style={{ textAlign: 'end' }}>
           <button className="logoutBtn" onClick={logout} style={logoutBtnStyle}>
             로그아웃
           </button>
         </div>
-        <h2
-          style={{
-            fontSize: '2rem',
-            margin: '1rem',
-            textAlign: 'center',
-          }}
-        >
-          Todo
-        </h2>
+        <h2 style={todoTextStlye}>Todo</h2>
         <TodoMain />
       </div>
     </div>
